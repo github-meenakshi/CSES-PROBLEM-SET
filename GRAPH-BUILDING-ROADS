@@ -1,0 +1,45 @@
+int last=-1;
+vector<pair<int,int> > ans;
+vector<int> visited(100003,0);
+vector<int> list[100003];
+void dfs(int node){
+    visited[node] = 1;
+    
+    for(int i = 0;i<list[node].size();i++){
+        int ele = list[node][i];
+        if(!visited[ele]){
+            dfs(ele);
+            }
+        }
+        last = node;
+    }
+void solve(int n){
+    int count = 0;
+    for(int i = 1;i<=n;i++){
+        if(!visited[i]){
+            if(last!=-1){
+                count++;
+                ans.push_back({last,i});
+                }
+            dfs(i);
+            }
+        }
+        
+        cout<<count<<endl;
+        for(auto it : ans){
+            cout<<it.first<<" "<<it.second<<endl;
+            }
+            
+            return;
+    }
+int main(){
+    int n,m;
+    cin>>n>>m;
+    for(int i = 1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        list[u].push_back(v);
+        list[v].push_back(u);
+        }
+        solve(n);
+    }
